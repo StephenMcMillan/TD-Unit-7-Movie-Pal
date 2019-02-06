@@ -42,11 +42,22 @@ enum MovieDB {
     
     // Get details of a movie with a specific id
     case movie(id: ID)
+    
+    // Gets the poster image url
+    case poster(path: String)
+    
+    case backdrop(path: String)
 }
 
 extension MovieDB: Endpoint {
     var baseUrl: String {
-        return "https://api.themoviedb.org"
+        
+        switch self {
+        case .genres, .people, .discoverMovies, .movie:
+            return "https://api.themoviedb.org"
+        case .poster, .backdrop:
+             return "https://image.tmdb.org"
+        }
     }
     
     var path: String {
@@ -59,14 +70,26 @@ extension MovieDB: Endpoint {
             return "/3/discover/movie"
         case .movie(let movieID):
             return "/3/movie/\(movieID)"
+        case .poster(let path):
+            return "/t/p/w92\(path)"
+        case .backdrop(let path):
+            return "/t/p/w780\(path)"
         }
     }
     
     var queryItems: [URLQueryItem] {
         
         var queryItems = [URLQueryItem]()
-        queryItems.append(URLQueryItem(name: "api_key", value: "f8b49a609c7bcf96aa3bdf2042ada35f")) // Add api key for every request.
         
+        // Add API key
+        switch self {
+        case .poster, .backdrop:
+            break
+        default:
+            queryItems.append(URLQueryItem(name: "api_key", value: "f8b49a609c7bcf96aa3bdf2042ada35f")) // Add api key for every request.
+        }
+        
+        // Additional Query Params
         switch self {
         case .people(let pageNumber):
             queryItems.append(URLQueryItem(name: "page", value: "\(pageNumber)"))
@@ -80,9 +103,8 @@ extension MovieDB: Endpoint {
                 URLQueryItem(name: "with_genres", value: genreIDs.asORQueryString()),
                 URLQueryItem(name: "with_people", value: peopleIDs.asORQueryString())
                 ])
-
         default:
-            break
+             break
         }
         
         return queryItems

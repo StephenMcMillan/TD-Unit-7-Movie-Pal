@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Nuke
 
 class MovieDetailController: UIViewController {
     
@@ -32,11 +33,18 @@ class MovieDetailController: UIViewController {
             return
         }
         
+        if let backdropPath = movie.backdropPath {
+            let backdropRequest = MovieDB.backdrop(path: backdropPath).request
+            Nuke.loadImage(with: ImageRequest(urlRequest: backdropRequest), into: backdropImage)
+            
+        }
+        
+        
         titleLabel.text = movie.originalTitle
         releaseDateLabel.text = String(movie.releaseDate.prefix(4))
         overviewLabel.text = movie.overview
-        
         ratingView.set(rating: Int(movie.voteAverage/2)) // The value returned is out of 10 but I want the value out of 5.
+        
     }
 
 }

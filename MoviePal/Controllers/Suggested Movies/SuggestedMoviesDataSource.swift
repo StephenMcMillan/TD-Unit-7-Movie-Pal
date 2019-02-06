@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Nuke
 
 class SuggestedMoviesDataSource: NSObject, UITableViewDataSource {
     
@@ -24,12 +25,17 @@ class SuggestedMoviesDataSource: NSObject, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell", for: indexPath) as! MovieCell
         
         let movie = movies[indexPath.row]
         
-        cell.textLabel?.text = movie.originalTitle
-        cell.detailTextLabel?.text = movie.releaseDate
+        cell.movieTitle.text = movie.originalTitle
+        cell.releaseYearLabel.text = movie.releaseDate
+        
+        if let posterImagePath = movie.posterPath {
+            let posterImageRequest = MovieDB.poster(path: posterImagePath).request
+            Nuke.loadImage(with: ImageRequest(urlRequest: posterImageRequest), into: cell.posterImage)
+        }
         
         return cell
     }
