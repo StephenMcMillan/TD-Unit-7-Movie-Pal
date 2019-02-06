@@ -17,24 +17,47 @@ class GenreSelectionController: UIViewController {
     
     weak var resultsDelegate: ResultsDelegate?
     
-    var genreDataSource = GenreSelectionDataSource()
+    // Table View Data Source & Delegate
+    
+    lazy var genreDataSource: GenreSelectionDataSource = {
+        return GenreSelectionDataSource(tableView: tableView)
+    }()
     
     lazy var genreSelectionDelegate: SelectionTableDelegate = {
         return SelectionTableDelegate(doneButton: nextBarButton, selectedItemsLabel: numberOfSelectedItemsLabel)
     }()
+    
+    // Networking Client
+    let movieDBClient = MovieDBClient()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tableView.dataSource = genreDataSource
         tableView.delegate = genreSelectionDelegate
+    
+        fetchGenres()
+    }
+    
+    func fetchGenres() {
+        
+        // Download the genres from the movie db api and alert the data source.
+        movieDBClient.getGenres { [weak self] result in
+            switch result {
+            case .success(let genres):
+                self?.genreDataSource.update(with: genres)
+                
+            case .failure(let error):
+                fatalError(error.localizedDescription)
+            }
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "SelectActors", let actorsSelectionController = segue.destination as? ActorSelectionController {
             // Moving to the actors view. Pass a reference to the delegate.
             if let selectedItems = tableView.indexPathsForSelectedRows {
-                let genres = selectedItems.map { genreDataSource.genres[$0.row] }
+                let genres = selectedItems.map { genreDataSource.object(at: $0) }
                 resultsDelegate?.genresSelected(genres)
 
                 actorsSelectionController.resultsDelegate = resultsDelegate

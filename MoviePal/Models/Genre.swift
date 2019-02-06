@@ -9,7 +9,12 @@
 import Foundation
 
 /// Representation of a Movie Genre from the MovieDB API
-struct Genre {
+
+struct GenreWrapper: Decodable {
+    let genres: [Genre]
+}
+
+struct Genre: Decodable {
     let id: Int
     let name: String
 }
