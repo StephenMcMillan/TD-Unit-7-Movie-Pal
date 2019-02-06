@@ -18,8 +18,12 @@ class ActorSelectionController: UIViewController {
     // Allows the view controller to communicate its results with the parent.
     weak var resultsDelegate: ResultsDelegate?
     
+    let client = MovieDBClient()
+    
     // Other Properties
-    var actorsDataSource = ActorSelectionDataSource()
+    lazy var actorsDataSource = {
+        return ActorSelectionDataSource(tableView: tableView)
+    }()
     
     lazy var actorsSelectionDelegate = {
         return SelectionTableDelegate(doneButton: doneBarButton, selectedItemsLabel: numberOfSelectedActorsLabel)
@@ -30,12 +34,27 @@ class ActorSelectionController: UIViewController {
 
         tableView.dataSource = actorsDataSource
         tableView.delegate = actorsSelectionDelegate
+        
+        fetchActors()
+    }
+    
+    func fetchActors() {
+        
+        client.getPopularActors { [weak self] result in
+            switch result {
+            case .success(let actors):
+                self?.actorsDataSource.update(with: actors)
+            case .failure(let error):
+                fatalError(error.localizedDescription)
+            }
+        }
+        
     }
     
     // MARK: - Done Button
     @IBAction func done(_ sender: UIBarButtonItem) {
         if let selectedItems = tableView.indexPathsForSelectedRows {
-            let actors = selectedItems.map { actorsDataSource.actors[$0.row] }
+            let actors = selectedItems.map { actorsDataSource.actor(at: $0) }
             
             resultsDelegate?.actorsSelected(actors)
             

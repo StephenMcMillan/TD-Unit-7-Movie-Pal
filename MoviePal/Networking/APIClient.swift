@@ -57,7 +57,7 @@ extension APIClient {
             
             do {
                 // 1. Try to decode a generic decodable object.
-                let decodedObjects = try JSONDecoder().decode(Object.self, from: data)
+                let decodedObjects = try JSONDecoder.movieDBDecoder.decode(Object.self, from: data)
                 
                 // 2. Decoded from JSON successfully, return the object.
                 completion(.success(decodedObjects))
@@ -83,7 +83,7 @@ extension APIClient {
             
             do {
                 // 1. Try to decode an array of generic decodable objects.
-                let decodedObjects = try JSONDecoder().decode([Object].self, from: data)
+                let decodedObjects = try JSONDecoder.movieDBDecoder.decode([Object].self, from: data)
                 
                 // 2. Decoded from JSON successfully, return the objects.
                 completion(.success(decodedObjects))

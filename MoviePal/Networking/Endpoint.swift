@@ -25,7 +25,7 @@ extension Endpoint {
         return urlComponents
     }
     
-    var urlRequest: URLRequest {
+    var request: URLRequest {
         return URLRequest(url: urlComponents.url!) // Again, crash if we can't create a request because this would need addressed.
     }
 }
@@ -33,6 +33,9 @@ extension Endpoint {
 enum MovieDB {
     /// Get all the genres
     case genres
+    
+    /// Get a list of popular movie folks
+    case people(page: Int)
     
     /// Get movies filtered that have genre ids and people ids
     case discoverMovies(genres: [ID], people: [ID])
@@ -50,6 +53,8 @@ extension MovieDB: Endpoint {
         switch self {
         case .genres:
             return "/3/genre/movie/list"
+        case .people:
+            return "/3/person/popular"
         case .discoverMovies:
             return "/3/discover/movie"
         case .movie(let movieID):
@@ -63,6 +68,9 @@ extension MovieDB: Endpoint {
         queryItems.append(URLQueryItem(name: "api_key", value: "f8b49a609c7bcf96aa3bdf2042ada35f")) // Add api key for every request.
         
         switch self {
+        case .people(let pageNumber):
+            queryItems.append(URLQueryItem(name: "page", value: "\(pageNumber)"))
+            
         case .discoverMovies(let genreIDs, let peopleIDs):
             
             // Appends the genres and people filter to the request.

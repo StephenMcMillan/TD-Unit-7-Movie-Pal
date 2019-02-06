@@ -43,6 +43,8 @@ class PreferenceCollectionController: UIViewController {
         firstPersonBubble.isConfigured = firstPersonPreferences.isConfigured
         secondPersonBubble.isConfigured = secondPersonPreferences.isConfigured
         
+        viewResultsButton.isEnabled = true
+        
         if firstPersonPreferences.isConfigured && secondPersonPreferences.isConfigured {
             viewResultsButton.isEnabled = true
         }
@@ -59,13 +61,23 @@ class PreferenceCollectionController: UIViewController {
     
     // MARK: - View Results Action
     @IBAction func viewResults() {
-
     }
     
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let navigationController = segue.destination as? UINavigationController, let genresSelectionController = navigationController.topViewController as? GenreSelectionController {
-            genresSelectionController.resultsDelegate = self
+        if let navigationController = segue.destination as? UINavigationController {
+            
+            if let genresSelectionController = navigationController.topViewController as? GenreSelectionController {
+                genresSelectionController.resultsDelegate = self
+            }
+            
+            if let suggestedMoviesController = navigationController.topViewController as? SuggestedMoviesController {
+                let preferences = MoviePreference.matchedPreference(from: firstPersonPreferences, and: secondPersonPreferences)
+                dump(preferences)
+                suggestedMoviesController.commonMoviePreference = preferences
+            }
+        
+        
         }
     }
 }
