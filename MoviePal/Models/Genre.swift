@@ -14,7 +14,7 @@ struct GenreWrapper: Decodable {
     let genres: [Genre]
 }
 
-struct Genre: Decodable {
+struct Genre: Decodable, Identifiable {
     let id: Int
     let name: String
 }

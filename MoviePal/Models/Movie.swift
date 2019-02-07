@@ -9,8 +9,9 @@
 import Foundation
 
 /// A model of the wrapper that the discover/movie endpoint returns
-struct MoviesWrapper: Decodable {
+struct MoviesWrapper: ResultsWrapper {
     let page: Int
+    let totalPages: Int
     let results: [Movie]
 }
 

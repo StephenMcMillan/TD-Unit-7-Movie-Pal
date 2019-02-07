@@ -19,8 +19,8 @@ class GenreSelectionController: UIViewController {
     
     // Table View Data Source & Delegate
     
-    lazy var genreDataSource: GenreSelectionDataSource = {
-        return GenreSelectionDataSource(tableView: tableView)
+    lazy var genreDataSource = {
+        return SelectionTableDataSource<Genre>(tableView: tableView)
     }()
     
     lazy var genreSelectionDelegate: SelectionTableDelegate = {

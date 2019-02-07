@@ -28,6 +28,13 @@ extension Endpoint {
     var request: URLRequest {
         return URLRequest(url: urlComponents.url!) // Again, crash if we can't create a request because this would need addressed.
     }
+    
+    /// Returns a URLRequest that has a page query item with the value set to whatever is passed in.
+    func request(forPage page: Int) -> URLRequest {
+        var components = urlComponents
+        components.queryItems?.append(URLQueryItem(name: "page", value: "\(page)"))
+        return URLRequest(url: components.url!)
+    }
 }
 
 enum MovieDB {
@@ -35,7 +42,7 @@ enum MovieDB {
     case genres
     
     /// Get a list of popular movie folks
-    case people(page: Int)
+    case people
     
     /// Get movies filtered that have genre ids and people ids
     case discoverMovies(genres: [ID], people: [ID])
@@ -91,9 +98,7 @@ extension MovieDB: Endpoint {
         
         // Additional Query Params
         switch self {
-        case .people(let pageNumber):
-            queryItems.append(URLQueryItem(name: "page", value: "\(pageNumber)"))
-            
+
         case .discoverMovies(let genreIDs, let peopleIDs):
             
             // Appends the genres and people filter to the request.

@@ -36,11 +36,46 @@ enum APIError: Error, LocalizedError {
 }
 
 protocol APIClient {
+    func downloadWrapper<Wrapper: ResultsWrapper>(ofType type: Wrapper.Type, from endpoint: Endpoint, upToPage maxPage: Int, withCompletion completion: @escaping (DownloadResult<[Wrapper.Result], APIError>) -> Void)
     func download<Object: Decodable>(from request: URLRequest, completionHandler completion: @escaping (DownloadResult<Object, APIError>) -> Void)
     func download<Object: Decodable>(from request: URLRequest, completionHandler completion: @escaping (DownloadResult<[Object], APIError>) -> Void)
 }
 
 extension APIClient {
+    
+    func downloadWrapper<Wrapper: ResultsWrapper>(ofType type: Wrapper.Type, from endpoint: Endpoint, upToPage maxPage: Int, withCompletion completion: @escaping (DownloadResult<[Wrapper.Result], APIError>) -> Void) {
+        
+        var currentPage = 1
+        var combinedResults = [Wrapper.Result]()
+        
+        func downloadPage() {
+            
+            let request = endpoint.request(forPage: currentPage)
+            
+            download(from: request) { (result: DownloadResult<Wrapper, APIError>) in
+                switch result {
+                case .success(let wrapper):
+                    
+                    // Recursively download until currentPage == pages required.
+                    combinedResults += wrapper.results
+                    
+                    if wrapper.page < maxPage {
+                        currentPage += 1 // Try to get the next page
+                        downloadPage()
+                    } else {
+                        // All the requested pages are downloaded.
+                        completion(.success(combinedResults))
+                    }
+                    
+                case .failure(let error):
+                    completion(.failure(error)) // Stop download, leave scope through completion handler.
+                }
+            }
+        }
+        
+        downloadPage()
+        
+    }
     
     // Provides default implementations for the two generic download functions.
     

@@ -15,7 +15,7 @@ class MovieDBClient: APIClient {
         
         let genresEndpoint = MovieDB.genres
         
-        // A abit of extra work needed because the genres endpoint has a wrapper.
+        // A abit of extra work needed because the genres endpoint wrapper is not the same format as the actors or movies.
         download(from: genresEndpoint.request) { (result: DownloadResult<GenreWrapper, APIError>) in
             switch result {
                 
@@ -29,36 +29,16 @@ class MovieDBClient: APIClient {
     }
     
     func getPopularActors(completionHandler completion: @escaping (DownloadResult<[Person], APIError>) -> Void) {
-        
-        let popularActorsEndpoint = MovieDB.people(page: 1)
-        
-        download(from: popularActorsEndpoint.request) { (result: DownloadResult<PeopleWrapper, APIError>) in
-            switch result {
-                
-            case .success(let peopleWrapper):
-                completion(.success(peopleWrapper.results)) // Pass only the results from the wrapper through.
-                
-            case .failure(let error):
-                completion(.failure(error)) // Bubble up the error
-            }
-        }
+        // Gets 4 pages of popular actors for users to select from...
+        downloadWrapper(ofType: PeopleWrapper.self, from: MovieDB.people, upToPage: 4, withCompletion: completion)
     }
     
     func getMovies(matching preference: MoviePreference, completionHandler completion: @escaping (DownloadResult<[Movie], APIError>) -> Void) {
         
         let discoverEndpoint = MovieDB.discoverMovies(genres: preference.genreIds, people: preference.actorIds)
         
-        download(from: discoverEndpoint.request) { (result: DownloadResult<MoviesWrapper, APIError>) in
-            switch result {
-                
-            case .success(let moviesWrapper):
-                completion(.success(moviesWrapper.results))
-                
-            case .failure(let error):
-                completion(.failure(error))
-                
-            }
-        }
+        /// Downloads movies that match the preferences above. In this instance 2 pages of results are downloaded.
+        downloadWrapper(ofType: MoviesWrapper.self, from: discoverEndpoint, upToPage: 2, withCompletion: completion)
 
     }
     

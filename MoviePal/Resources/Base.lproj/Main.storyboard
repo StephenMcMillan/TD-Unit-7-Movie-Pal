@@ -86,9 +86,9 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="882" y="678"/>
+            <point key="canvasLocation" x="881.15942028985512" y="677.67857142857144"/>
         </scene>
-        <!--Choose your Favourite Genres-->
+        <!--Select Genres-->
         <scene sceneID="4UI-dZ-l32">
             <objects>
                 <viewController id="9dM-S4-94F" customClass="GenreSelectionController" customModule="MoviePal" customModuleProvider="target" sceneMemberID="viewController">
@@ -99,9 +99,26 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsMultipleSelection="YES" rowHeight="64" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Mgl-gO-J5s">
                                 <rect key="frame" x="0.0" y="88" width="414" height="716"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <view key="tableHeaderView" contentMode="scaleToFill" id="pph-zA-NwB" userLabel="Header">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="65"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select up to 5 movie genres that you like." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oxi-Vl-j6u">
+                                            <rect key="frame" x="12" y="21.5" width="390" height="22"/>
+                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                                            <color key="textColor" red="0.61074227089999999" green="0.2397650778" blue="0.2313626409" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="Oxi-Vl-j6u" firstAttribute="leading" secondItem="pph-zA-NwB" secondAttribute="leading" constant="12" id="EYG-AZ-wsw"/>
+                                        <constraint firstItem="Oxi-Vl-j6u" firstAttribute="centerY" secondItem="pph-zA-NwB" secondAttribute="centerY" id="cLf-Ld-Gv1"/>
+                                        <constraint firstAttribute="trailing" secondItem="Oxi-Vl-j6u" secondAttribute="trailing" constant="12" id="dY2-4j-pB8"/>
+                                    </constraints>
+                                </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PreferenceCell" id="nTq-uM-6UE" customClass="PreferenceCell" customModule="MoviePal" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="64"/>
+                                        <rect key="frame" x="0.0" y="93" width="414" height="64"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="nTq-uM-6UE" id="G5r-MN-L9q">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="63.5"/>
@@ -166,7 +183,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="egh-4D-Enl"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Choose your Favourite Genres" id="r8V-oT-fG0">
+                    <navigationItem key="navigationItem" title="Select Genres" id="r8V-oT-fG0">
                         <barButtonItem key="rightBarButtonItem" enabled="NO" title="Next" id="h8g-bg-C02">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
@@ -195,9 +212,26 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsMultipleSelection="YES" rowHeight="64" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="5La-VR-8xu">
                                 <rect key="frame" x="0.0" y="88" width="414" height="716"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <view key="tableHeaderView" contentMode="scaleToFill" id="g05-Zf-4gT" userLabel="Header">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="65"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select up to 5 actors that you like." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NQd-Ki-cKC">
+                                            <rect key="frame" x="12" y="21.5" width="390" height="22"/>
+                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                                            <color key="textColor" red="0.61074227089999999" green="0.2397650778" blue="0.2313626409" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="NQd-Ki-cKC" firstAttribute="leading" secondItem="g05-Zf-4gT" secondAttribute="leading" constant="12" id="h6G-UO-pWC"/>
+                                        <constraint firstItem="NQd-Ki-cKC" firstAttribute="centerY" secondItem="g05-Zf-4gT" secondAttribute="centerY" id="i33-iy-Jb2"/>
+                                        <constraint firstAttribute="trailing" secondItem="NQd-Ki-cKC" secondAttribute="trailing" constant="12" id="zAy-XF-c3s"/>
+                                    </constraints>
+                                </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PreferenceCell" id="Qog-Va-DnA" customClass="PreferenceCell" customModule="MoviePal" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="64"/>
+                                        <rect key="frame" x="0.0" y="93" width="414" height="64"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Qog-Va-DnA" id="Pq3-PT-UjK">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="63.5"/>

@@ -22,7 +22,7 @@ class ActorSelectionController: UIViewController {
     
     // Other Properties
     lazy var actorsDataSource = {
-        return ActorSelectionDataSource(tableView: tableView)
+        return SelectionTableDataSource<Person>(tableView: tableView)
     }()
     
     lazy var actorsSelectionDelegate = {
@@ -54,7 +54,7 @@ class ActorSelectionController: UIViewController {
     // MARK: - Done Button
     @IBAction func done(_ sender: UIBarButtonItem) {
         if let selectedItems = tableView.indexPathsForSelectedRows {
-            let actors = selectedItems.map { actorsDataSource.actor(at: $0) }
+            let actors = selectedItems.map { actorsDataSource.object(at: $0) }
             
             resultsDelegate?.actorsSelected(actors)
             
