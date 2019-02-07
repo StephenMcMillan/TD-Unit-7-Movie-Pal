@@ -30,6 +30,7 @@
 		691D30DE220BA16000997A1E /* Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691D30DD220BA16000997A1E /* Identifiable.swift */; };
 		691D30E0220BA27E00997A1E /* SelectionTableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691D30DF220BA27E00997A1E /* SelectionTableDataSource.swift */; };
 		691D30E2220BB3E000997A1E /* MovieDBAPIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691D30E1220BB3E000997A1E /* MovieDBAPIKey.swift */; };
+		691D30E4220BB99500997A1E /* Magnetic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 691D30E3220BB99500997A1E /* Magnetic.framework */; };
 		69D5FD492208B6B400F9D392 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D5FD482208B6B400F9D392 /* AppDelegate.swift */; };
 		69D5FD4E2208B6B400F9D392 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 69D5FD4C2208B6B400F9D392 /* Main.storyboard */; };
 		69D5FD502208B6B600F9D392 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 69D5FD4F2208B6B600F9D392 /* Assets.xcassets */; };
@@ -60,6 +61,7 @@
 		691D30DD220BA16000997A1E /* Identifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identifiable.swift; sourceTree = "<group>"; };
 		691D30DF220BA27E00997A1E /* SelectionTableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionTableDataSource.swift; sourceTree = "<group>"; };
 		691D30E1220BB3E000997A1E /* MovieDBAPIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDBAPIKey.swift; sourceTree = "<group>"; };
+		691D30E3220BB99500997A1E /* Magnetic.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Magnetic.framework; path = Carthage/Build/iOS/Magnetic.framework; sourceTree = "<group>"; };
 		69D5FD452208B6B400F9D392 /* MoviePal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoviePal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		69D5FD482208B6B400F9D392 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		69D5FD4D2208B6B400F9D392 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -74,6 +76,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				691D30D7220B638000997A1E /* Nuke.framework in Frameworks */,
+				691D30E4220BB99500997A1E /* Magnetic.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -159,6 +162,7 @@
 		691D30D5220B638000997A1E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				691D30E3220BB99500997A1E /* Magnetic.framework */,
 				691D30D6220B638000997A1E /* Nuke.framework */,
 			);
 			name = Frameworks;
@@ -272,6 +276,7 @@
 			);
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/Nuke.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Magnetic.framework",
 			);
 			outputFileListPaths = (
 			);

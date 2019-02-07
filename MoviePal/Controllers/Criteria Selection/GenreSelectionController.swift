@@ -7,25 +7,27 @@
 //
 
 import UIKit
+import Magnetic
 
-class GenreSelectionController: UIViewController {
+class GenreSelectionController: UIViewController, MagneticDelegate {
     
     // Outlets
     @IBOutlet weak var nextBarButton: UIBarButtonItem!
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var numberOfSelectedItemsLabel: UILabel!
+    //@IBOutlet weak var tableView: UITableView!
     
     weak var resultsDelegate: ResultsDelegate?
     
-    // Table View Data Source & Delegate
+    // Bubble View
+    var magnetic: Magnetic?
     
-    lazy var genreDataSource = {
-        return SelectionTableDataSource<Genre>(tableView: tableView)
-    }()
+    // Data
+    var genres: [Genre] = []
     
-    lazy var genreSelectionDelegate: SelectionTableDelegate = {
-        return SelectionTableDelegate(doneButton: nextBarButton, selectedItemsLabel: numberOfSelectedItemsLabel)
-    }()
+    var selectedGenres: [Genre] = [] {
+        didSet {
+            nextBarButton.isEnabled = !selectedGenres.isEmpty
+        }
+    }
     
     // Networking Client
     let movieDBClient = MovieDBClient()
@@ -33,19 +35,22 @@ class GenreSelectionController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.dataSource = genreDataSource
-        tableView.delegate = genreSelectionDelegate
-    
+        let magneticView = MagneticView(frame: self.view.frame)
+        magnetic = magneticView.magnetic
+        magnetic?.magneticDelegate = self
+        self.view.addSubview(magneticView)
+        
         fetchGenres()
     }
     
     func fetchGenres() {
         
-        // Download the genres from the movie db api and alert the data source.
+        // Download the genres from the movie db API
         movieDBClient.getGenres { [weak self] result in
             switch result {
             case .success(let genres):
-                self?.genreDataSource.update(with: genres)
+                self?.genres = genres
+                self?.setupMagneticView()
                 
             case .failure(let error):
                 fatalError(error.localizedDescription)
@@ -53,17 +58,35 @@ class GenreSelectionController: UIViewController {
         }
     }
     
+    func setupMagneticView() {
+        
+        let colours = [#colorLiteral(red: 0.6138964891, green: 0.07462634891, blue: 0.08868887275, alpha: 1),#colorLiteral(red: 0.6615397334, green: 0.2057663202, blue: 0.2145739794, alpha: 1),#colorLiteral(red: 0.7798705101, green: 0.2410033941, blue: 0.2557413578, alpha: 1)]
+        
+        genres.forEach { genre in
+            let magnetNode = Node(text: genre.name, image: nil, color: colours.randomElement()!, radius: 50.0)
+            magnetic?.addChild(magnetNode)
+        }
+    }
+    
+    func magnetic(_ magnetic: Magnetic, didSelect node: Node) {
+        if let genre = genres.first(where: { $0.name == node.text }) {
+            selectedGenres.append(genre)
+        }
+    }
+    
+    func magnetic(_ magnetic: Magnetic, didDeselect node: Node) {
+        if let genre = genres.first(where: { $0.name == node.text }), let index = selectedGenres.firstIndex(of: genre) {
+            selectedGenres.remove(at: index)
+        }
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        print(selectedGenres)
         if segue.identifier == "SelectActors", let actorsSelectionController = segue.destination as? ActorSelectionController {
             // Moving to the actors view. Pass a reference to the delegate.
-            if let selectedItems = tableView.indexPathsForSelectedRows {
-                let genres = selectedItems.map { genreDataSource.object(at: $0) }
-                resultsDelegate?.genresSelected(genres)
+                resultsDelegate?.genresSelected(selectedGenres)
 
                 actorsSelectionController.resultsDelegate = resultsDelegate
-                resultsDelegate = nil
-            }
-            
         }
     }
     

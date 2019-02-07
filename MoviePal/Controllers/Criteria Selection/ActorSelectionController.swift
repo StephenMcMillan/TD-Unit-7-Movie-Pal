@@ -51,14 +51,14 @@ class ActorSelectionController: UIViewController {
         
     }
     
-    // MARK: - Done Button
+    // MARK: - Navigation
     @IBAction func done(_ sender: UIBarButtonItem) {
         if let selectedItems = tableView.indexPathsForSelectedRows {
             let actors = selectedItems.map { actorsDataSource.object(at: $0) }
             
             resultsDelegate?.actorsSelected(actors)
+            navigationController?.dismiss(animated: true , completion: nil)
             
-            navigationController?.dismiss(animated: true, completion: nil)
         }
     }
     

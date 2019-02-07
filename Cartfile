@@ -1,1 +1,2 @@
 github "kean/Nuke" ~> 7.0
+github "efremidze/Magnetic"
