@@ -95,31 +95,7 @@
                     <view key="view" contentMode="scaleToFill" id="L3V-YY-8GL">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4nU-ys-teX">
-                                <rect key="frame" x="0.0" y="804" width="414" height="58"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 of 5 selected" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eKK-Ca-PtF">
-                                        <rect key="frame" x="144" y="17" width="126" height="24"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" red="0.61074227089999999" green="0.2397650778" blue="0.2313626409" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <constraints>
-                                    <constraint firstItem="eKK-Ca-PtF" firstAttribute="centerY" secondItem="4nU-ys-teX" secondAttribute="centerY" id="8YE-5L-h5G"/>
-                                    <constraint firstItem="eKK-Ca-PtF" firstAttribute="centerX" secondItem="4nU-ys-teX" secondAttribute="centerX" id="PjV-Yg-tUU"/>
-                                    <constraint firstAttribute="height" constant="58" id="xxp-Yq-ejJ"/>
-                                </constraints>
-                            </view>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="4nU-ys-teX" firstAttribute="leading" secondItem="egh-4D-Enl" secondAttribute="leading" id="IUH-39-1M4"/>
-                            <constraint firstItem="egh-4D-Enl" firstAttribute="bottom" secondItem="4nU-ys-teX" secondAttribute="bottom" id="SFr-OH-kGk"/>
-                            <constraint firstItem="egh-4D-Enl" firstAttribute="trailing" secondItem="4nU-ys-teX" secondAttribute="trailing" id="r3b-Bo-RcZ"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="egh-4D-Enl"/>
                     </view>
                     <navigationItem key="navigationItem" title="Select Genres" id="r8V-oT-fG0">
@@ -342,7 +318,7 @@
                                     <outlet property="movieTitle" destination="Ole-e0-4te" id="sLF-xB-1Xd"/>
                                     <outlet property="posterImage" destination="vaG-bn-Fud" id="MQg-nb-vnN"/>
                                     <outlet property="releaseYearLabel" destination="H30-O7-0eT" id="fAU-FE-RH8"/>
-                                    <segue destination="wjE-hM-IJ5" kind="show" id="xd8-t4-KyW"/>
+                                    <segue destination="wjE-hM-IJ5" kind="show" id="0VU-4m-af1"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
