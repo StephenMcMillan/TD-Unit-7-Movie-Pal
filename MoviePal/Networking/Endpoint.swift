@@ -93,7 +93,7 @@ extension MovieDB: Endpoint {
         case .poster, .backdrop:
             break
         default:
-            queryItems.append(URLQueryItem(name: "api_key", value: "f8b49a609c7bcf96aa3bdf2042ada35f")) // Add api key for every request.
+            queryItems.append(URLQueryItem(name: "api_key", value: API_KEY)) // Add api key for every request.
         }
         
         // Additional Query Params

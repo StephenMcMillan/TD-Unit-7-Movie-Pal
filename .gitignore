@@ -102,3 +102,6 @@ iOSInjectionProject/
 **/xcshareddata/WorkspaceSettings.xcsettings
 
 # End of https://www.gitignore.io/api/swift,xcode
+
+# Exclusion for api key
+MoviePal/Networking/MovieDBAPIKey.swift
