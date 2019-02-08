@@ -30,7 +30,7 @@ struct Person: Decodable, Identifiable {
     let name: String
 }
 
-extension Person: Equatable {
+extension Person: Equatable, Hashable {
     static func == (lhs: Person, rhs: Person) -> Bool {
         return lhs.id == rhs.id
     }

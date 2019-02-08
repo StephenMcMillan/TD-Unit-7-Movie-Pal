@@ -12,6 +12,7 @@ import UIKit
 protocol ResultsDelegate: class {
     func genresSelected(_ genres: [Genre])
     func actorsSelected(_ actors: [Person])
+    func minimumRatingSelected(_ rating: Int)
 }
 
 /// Entry point of the application. Responsbile for collecting movie preferences for two people and presenting a results controller.
@@ -89,6 +90,11 @@ extension PreferenceCollectionController: ResultsDelegate {
     
     func actorsSelected(_ actors: [Person]) {
         focusedPersonPreferences?.preferedActors = actors
-        focusedPersonPreferences = nil // Finished setting values...
+        //focusedPersonPreferences = nil // Finished setting values...
+    }
+    
+    func minimumRatingSelected(_ rating: Int) {
+        focusedPersonPreferences?.minimumRating = rating
+        
     }
 }

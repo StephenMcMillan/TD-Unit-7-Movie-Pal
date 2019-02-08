@@ -35,7 +35,7 @@ class MovieDBClient: APIClient {
     
     func getMovies(matching preference: MoviePreference, completionHandler completion: @escaping (DownloadResult<[Movie], APIError>) -> Void) {
         
-        let discoverEndpoint = MovieDB.discoverMovies(genres: preference.genreIds, people: preference.actorIds)
+        let discoverEndpoint = MovieDB.discoverMovies(genres: preference.genreIds, people: preference.actorIds, minimumRating: preference.minimumRating)
         
         /// Downloads movies that match the preferences above. In this instance 2 pages of results are downloaded.
         downloadWrapper(ofType: MoviesWrapper.self, from: discoverEndpoint, upToPage: 2, withCompletion: completion)

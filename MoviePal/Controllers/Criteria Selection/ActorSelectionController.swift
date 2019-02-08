@@ -12,7 +12,7 @@ class ActorSelectionController: UIViewController {
 
     // Interface Builder Outlets
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var doneBarButton: UIBarButtonItem!
+    @IBOutlet weak var nextBarButton: UIBarButtonItem!
     @IBOutlet weak var numberOfSelectedActorsLabel: UILabel!
     
     // Allows the view controller to communicate its results with the parent.
@@ -26,7 +26,7 @@ class ActorSelectionController: UIViewController {
     }()
     
     lazy var actorsSelectionDelegate = {
-        return SelectionTableDelegate(doneButton: doneBarButton, selectedItemsLabel: numberOfSelectedActorsLabel)
+        return SelectionTableDelegate(doneButton: nextBarButton, selectedItemsLabel: numberOfSelectedActorsLabel)
     }()
     
     override func viewDidLoad() {
@@ -45,19 +45,27 @@ class ActorSelectionController: UIViewController {
             case .success(let actors):
                 self?.actorsDataSource.update(with: actors)
             case .failure(let error):
-                fatalError(error.localizedDescription)
+                let alert = errorAlert(for: error, actionCompletion: {
+                    self?.navigationController?.dismiss(animated: true, completion: nil)
+                })
+                self?.present(alert, animated: true, completion: nil)
             }
         }
         
     }
     
-    // MARK: - Navigation
-    @IBAction func done(_ sender: UIBarButtonItem) {
-        if let selectedItems = tableView.indexPathsForSelectedRows {
-            let actors = selectedItems.map { actorsDataSource.object(at: $0) }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let minimumRatingController = segue.destination as? MinimumRatingSelectionController {
             
-            resultsDelegate?.actorsSelected(actors)
-            navigationController?.dismiss(animated: true , completion: nil)
+            if let selectedItems = tableView.indexPathsForSelectedRows {
+                let actors = selectedItems.map { actorsDataSource.object(at: $0) }
+                
+                resultsDelegate?.actorsSelected(actors)
+                
+            }
+            
+            minimumRatingController.resultsDelegate = resultsDelegate
+            
             
         }
     }

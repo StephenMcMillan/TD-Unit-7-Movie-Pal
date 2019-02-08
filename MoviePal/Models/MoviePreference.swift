@@ -12,6 +12,7 @@ import Foundation
 class MoviePreference {
     var preferedGenres: [Genre] = []
     var preferedActors: [Person] = []
+    var minimumRating: Int = 5
     
     var genreIds: [Int] {
         return preferedGenres.map { $0.id }
@@ -32,18 +33,22 @@ class MoviePreference {
         
         let matched = MoviePreference()
         
-        // Try and get an array of common genres and actors between the two preferences.
-        matched.preferedGenres = firstPreference.preferedGenres.filter { return secondPreference.preferedGenres.contains($0) }
-        matched.preferedActors = firstPreference.preferedActors.filter { return secondPreference.preferedActors.contains($0) }
+        // Create a Set of Genres and Actors containing the elements that both users selected.
+        let matchedGenresSet = Set(firstPreference.preferedGenres).intersection(secondPreference.preferedGenres)
+        let matchedActorsSet = Set(firstPreference.preferedActors).intersection(secondPreference.preferedActors)
         
-        if matched.preferedGenres.isEmpty {
-            // There were no common genres so combine both peoples prefered genres as the result.
-            matched.preferedGenres = firstPreference.preferedGenres + secondPreference.preferedGenres
+        if firstPreference.minimumRating > secondPreference.minimumRating {
+            matched.minimumRating = firstPreference.minimumRating
+        } else {
+            matched.minimumRating = secondPreference.minimumRating
         }
         
-        if matched.preferedActors.isEmpty {
-            matched.preferedActors = firstPreference.preferedActors + secondPreference.preferedActors
-        }
+        // Check if the common genres or actors sets are empty.
+        // If so: The two users had no common interests so just return a combination of both their interests.
+        // If not empty: Return the set so that the movies returned will be more specific to what the two users like.
+        matched.preferedGenres = matchedGenresSet.isEmpty ? (firstPreference.preferedGenres + secondPreference.preferedGenres) : Array(matchedGenresSet)
+        
+        matched.preferedActors = matchedActorsSet.isEmpty ? (firstPreference.preferedActors + secondPreference.preferedActors) : Array(matchedActorsSet)
         
         return matched
         

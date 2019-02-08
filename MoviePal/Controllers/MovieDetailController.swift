@@ -36,7 +36,6 @@ class MovieDetailController: UIViewController {
         if let backdropPath = movie.backdropPath {
             let backdropRequest = MovieDB.backdrop(path: backdropPath).request
             Nuke.loadImage(with: ImageRequest(urlRequest: backdropRequest), into: backdropImage)
-            
         }
         
         

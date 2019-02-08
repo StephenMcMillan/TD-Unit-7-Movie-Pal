@@ -34,12 +34,12 @@ class GenreSelectionController: UIViewController, MagneticDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         let magneticView = MagneticView(frame: self.view.frame)
         magnetic = magneticView.magnetic
         magnetic?.magneticDelegate = self
         self.view.addSubview(magneticView)
-        
+
         fetchGenres()
     }
     
@@ -53,7 +53,10 @@ class GenreSelectionController: UIViewController, MagneticDelegate {
                 self?.setupMagneticView()
                 
             case .failure(let error):
-                fatalError(error.localizedDescription)
+                let alert = errorAlert(for: error, actionCompletion: {
+                    self?.navigationController?.dismiss(animated: true, completion: nil)
+                })
+                self?.present(alert, animated: true, completion: nil)
             }
         }
     }

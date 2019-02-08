@@ -45,7 +45,7 @@ enum MovieDB {
     case people
     
     /// Get movies filtered that have genre ids and people ids
-    case discoverMovies(genres: [ID], people: [ID])
+    case discoverMovies(genres: [ID], people: [ID], minimumRating: Int)
     
     // Get details of a movie with a specific id
     case movie(id: ID)
@@ -99,14 +99,15 @@ extension MovieDB: Endpoint {
         // Additional Query Params
         switch self {
 
-        case .discoverMovies(let genreIDs, let peopleIDs):
+        case .discoverMovies(let genreIDs, let peopleIDs, let minimumRating):
             
             // Appends the genres and people filter to the request.
             // Genre IDs and People IDs are converted to a query string, separated by the |/OR filter. This means that movies contain x genre OR y genre as well as x or y person will be returned insteadof x AND y genre.
             // Less strict filter = less accurate results but more results.
             queryItems.append(contentsOf: [
                 URLQueryItem(name: "with_genres", value: genreIDs.asORQueryString()),
-                URLQueryItem(name: "with_people", value: peopleIDs.asORQueryString())
+                URLQueryItem(name: "with_people", value: peopleIDs.asORQueryString()),
+                URLQueryItem(name: "vote_average.gte", value: "\(minimumRating * 2)")
                 ])
         default:
              break

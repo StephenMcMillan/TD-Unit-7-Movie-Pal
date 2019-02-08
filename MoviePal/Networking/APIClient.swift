@@ -10,31 +10,6 @@ import Foundation
 
 // A blueprint for API Client functionality
 
-/// Model of a download result
-///
-/// - success: Returned if the download succeeds. Generic T is data.
-/// - failure: Returned if the download fails. Generic E is some error.
-enum DownloadResult<T, E: Error> {
-    case success(T)
-    case failure(E)
-}
-
-enum APIError: Error, LocalizedError {
-    case requestFailed
-    case requestUnsuccessful(Int)
-    case missingData
-    case decodingFailure
-    
-    var localizedDescription: String {
-        switch self {
-        case .requestFailed: return "The request failed during the download process."
-        case .requestUnsuccessful(let statusCode): return "The request was unsuccessful with status code: \(statusCode)."
-        case .missingData: return "There was an issue unpacking the data retrieved from the server. Try again."
-        case .decodingFailure: return "Unable to successfully decode the data retrieved from the server to the expected object."
-        }
-    }
-}
-
 protocol APIClient {
     func downloadWrapper<Wrapper: ResultsWrapper>(ofType type: Wrapper.Type, from endpoint: Endpoint, upToPage maxPage: Int, withCompletion completion: @escaping (DownloadResult<[Wrapper.Result], APIError>) -> Void)
     func download<Object: Decodable>(from request: URLRequest, completionHandler completion: @escaping (DownloadResult<Object, APIError>) -> Void)

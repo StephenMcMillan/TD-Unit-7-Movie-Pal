@@ -35,9 +35,18 @@ class SuggestedMoviesController: UITableViewController {
         client.getMovies(matching: preferences) { [weak self] result in
             switch result {
             case .success(let movies):
+                
+                guard movies.count > 0 else {
+                    self?.navigationController?.dismiss(animated: true, completion: nil)
+                    return
+                }
+                
                 self?.moviesDataSource.update(with: movies)
             case .failure(let error):
-                fatalError(error.localizedDescription)
+                let alert = errorAlert(for: error, actionCompletion: {
+                    self?.navigationController?.dismiss(animated: true, completion: nil)
+                })
+                self?.present(alert, animated: true, completion: nil)
             }
         }
     }

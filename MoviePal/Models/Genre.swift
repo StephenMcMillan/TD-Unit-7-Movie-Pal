@@ -19,7 +19,7 @@ struct Genre: Decodable, Identifiable {
     let name: String
 }
 
-extension Genre: Equatable {
+extension Genre: Equatable, Hashable {
     static func == (lhs: Genre, rhs: Genre) -> Bool {
         return lhs.id == rhs.id
     }
