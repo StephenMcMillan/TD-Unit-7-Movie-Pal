@@ -30,7 +30,6 @@
 		691D30DE220BA16000997A1E /* Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691D30DD220BA16000997A1E /* Identifiable.swift */; };
 		691D30E0220BA27E00997A1E /* SelectionTableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691D30DF220BA27E00997A1E /* SelectionTableDataSource.swift */; };
 		691D30E2220BB3E000997A1E /* MovieDBAPIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691D30E1220BB3E000997A1E /* MovieDBAPIKey.swift */; };
-		691D30E4220BB99500997A1E /* Magnetic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 691D30E3220BB99500997A1E /* Magnetic.framework */; };
 		691D30EA220C774400997A1E /* AlertControllerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691D30E9220C774400997A1E /* AlertControllerHelper.swift */; };
 		691D30EC220C79B900997A1E /* DownloadResult+APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691D30EB220C79B900997A1E /* DownloadResult+APIError.swift */; };
 		691D30EE220C7FD500997A1E /* MinimumRatingSelectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691D30ED220C7FD500997A1E /* MinimumRatingSelectionController.swift */; };
@@ -82,7 +81,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				691D30D7220B638000997A1E /* Nuke.framework in Frameworks */,
-				691D30E4220BB99500997A1E /* Magnetic.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -241,6 +239,7 @@
 				TargetAttributes = {
 					69D5FD442208B6B400F9D392 = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1020;
 					};
 				};
 			};
@@ -285,7 +284,6 @@
 			);
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/Nuke.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Magnetic.framework",
 			);
 			outputFileListPaths = (
 			);
@@ -404,13 +402,14 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -459,12 +458,13 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 4.2;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -480,6 +480,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = MoviePal/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -502,6 +503,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = MoviePal/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

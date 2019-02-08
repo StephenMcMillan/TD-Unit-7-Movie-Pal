@@ -37,7 +37,10 @@ class SuggestedMoviesController: UITableViewController {
             case .success(let movies):
                 
                 guard movies.count > 0 else {
-                    self?.navigationController?.dismiss(animated: true, completion: nil)
+                    let alert = errorAlert(for: APIError.noMatches , actionCompletion: {
+                        self?.navigationController?.dismiss(animated: true, completion: nil)
+                    })
+                    self?.present(alert, animated: true, completion: nil)
                     return
                 }
                 

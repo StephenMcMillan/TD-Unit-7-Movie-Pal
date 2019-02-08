@@ -14,6 +14,8 @@ class ActorSelectionController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var nextBarButton: UIBarButtonItem!
     @IBOutlet weak var numberOfSelectedActorsLabel: UILabel!
+    @IBOutlet weak var headerPrompt: UILabel!
+    @IBOutlet weak var networkIndicator: UIActivityIndicatorView!
     
     // Allows the view controller to communicate its results with the parent.
     weak var resultsDelegate: ResultsDelegate?
@@ -43,6 +45,8 @@ class ActorSelectionController: UIViewController {
         client.getPopularActors { [weak self] result in
             switch result {
             case .success(let actors):
+                self?.networkIndicator.stopAnimating()
+                self?.headerPrompt.isHidden = false
                 self?.actorsDataSource.update(with: actors)
             case .failure(let error):
                 let alert = errorAlert(for: error, actionCompletion: {
@@ -55,7 +59,7 @@ class ActorSelectionController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let minimumRatingController = segue.destination as? MinimumRatingSelectionController {
+        if segue.identifier == "SelectRating", let minimumRatingController = segue.destination as? MinimumRatingSelectionController {
             
             if let selectedItems = tableView.indexPathsForSelectedRows {
                 let actors = selectedItems.map { actorsDataSource.object(at: $0) }

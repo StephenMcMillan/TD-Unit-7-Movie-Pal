@@ -116,7 +116,7 @@ extension APIClient {
             DispatchQueue.main.async {
                 // Error should be nil if request was successful.
                 guard error == nil else {
-                    completion(nil, APIError.requestFailed) // FIXME: maybe propogate this up for internet connection errors.
+                    completion(nil, APIError.requestFailed(error?.localizedDescription ?? "Something went wrong..."))
                     return
                 }
                 

@@ -43,9 +43,7 @@ class PreferenceCollectionController: UIViewController {
     func updateDisplay() {
         firstPersonBubble.isConfigured = firstPersonPreferences.isConfigured
         secondPersonBubble.isConfigured = secondPersonPreferences.isConfigured
-        
-        viewResultsButton.isEnabled = true
-        
+                
         if firstPersonPreferences.isConfigured && secondPersonPreferences.isConfigured {
             viewResultsButton.isEnabled = true
         }

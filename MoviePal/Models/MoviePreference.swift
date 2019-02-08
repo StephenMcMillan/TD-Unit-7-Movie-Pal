@@ -35,7 +35,9 @@ class MoviePreference {
         
         // Create a Set of Genres and Actors containing the elements that both users selected.
         let matchedGenresSet = Set(firstPreference.preferedGenres).intersection(secondPreference.preferedGenres)
-        let matchedActorsSet = Set(firstPreference.preferedActors).intersection(secondPreference.preferedActors)
+       
+        // Return all actors, only match on genres of interest because data set is smaller.
+        let matchedActorsSet = Set(firstPreference.preferedActors).union(secondPreference.preferedActors)
         
         if firstPreference.minimumRating > secondPreference.minimumRating {
             matched.minimumRating = firstPreference.minimumRating
@@ -47,8 +49,9 @@ class MoviePreference {
         // If so: The two users had no common interests so just return a combination of both their interests.
         // If not empty: Return the set so that the movies returned will be more specific to what the two users like.
         matched.preferedGenres = matchedGenresSet.isEmpty ? (firstPreference.preferedGenres + secondPreference.preferedGenres) : Array(matchedGenresSet)
+        matched.preferedActors = Array(matchedActorsSet)
         
-        matched.preferedActors = matchedActorsSet.isEmpty ? (firstPreference.preferedActors + secondPreference.preferedActors) : Array(matchedActorsSet)
+        //matched.preferedActors = matchedActorsSet.isEmpty ? (firstPreference.preferedActors + secondPreference.preferedActors) : Array(matchedActorsSet)
         
         return matched
         

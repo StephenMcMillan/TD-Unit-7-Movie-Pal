@@ -18,17 +18,19 @@ enum DownloadResult<T, E: Error> {
 }
 
 enum APIError: Error, LocalizedError {
-    case requestFailed
+    case requestFailed(String)
     case requestUnsuccessful(Int)
     case missingData
     case decodingFailure
+    case noMatches
     
-    var localizedDescription: String {
+    var errorDescription: String? {
         switch self {
-        case .requestFailed: return "The request failed during the download process."
+        case .requestFailed(let message): return "The request failed during the download process. \(message)"
         case .requestUnsuccessful(let statusCode): return "The request was unsuccessful with status code: \(statusCode)."
         case .missingData: return "There was an issue unpacking the data retrieved from the server. Try again."
         case .decodingFailure: return "Unable to successfully decode the data retrieved from the server to the expected object."
+        case .noMatches: return "We couldn't find any movies that matched both of your preferences. Try changing your selections and try again."
         }
     }
 }
